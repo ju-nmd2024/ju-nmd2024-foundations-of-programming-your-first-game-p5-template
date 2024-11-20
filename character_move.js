@@ -1,8 +1,15 @@
 
+/* 
+Hi, i just want to inform that debugging happend but with the help of AI 
+some small errors such as extra spacing, wrong calling functions and other things 
+these are help to fix my code also line 186 - 189 i got help from my frined
+he explain why we use it 
+thanks a lot 
+*/
 let x = 100;
 let y = 100;
-let speed = 4;
-let normalSpeed = 4; 
+let speed = 6;
+let normalSpeed = 5; 
 let slowSpeed = 1;
 let gameState = 'start';
 let difficulty = '';
@@ -14,46 +21,32 @@ let colorChange = 1000;
 let plates = [
    {x: 200, y: 550, isGreen:false},
    {x: 400, y: 550, isGreen:false},
-   {x: 600, y: 550, isGreen:false},
+   {x: 600, y: 550, isGreen:false}
 ];
 
 function setup () {
  createCanvas(800,600);
 }
 
-function gameCondition() {
-   if(y >= height - 150) {
-      for (let plate of plates) {
-         if (x >= plate.x - 70 && x <= plate.x + 100) { 
-            if ( y >= plate.y - 20) {
-               if (plate.isGreen) {
-                  gameState = 'win';
-               } else {
-                  gameState = 'gameover';
-               }
-            }
-         }
-      }
-   }
-}
 function setPlateColor() {
    // red plate 
-   plate[0].isGreen = false;
-   plate[1].isGreen = false;
-   plate[2].isGreen = false;
+   plates[0].isGreen = false;
+   plates[1].isGreen = false;
+   plates[2].isGreen = false;
    
    // grean color easy difficulty 
    if (difficulty === 'easy') {
-   plate[0].isGreen = true;
-   plate[1].isGreen = true;
-   plate[2].isGreen = true;
+   plates[0].isGreen = true;
+   plates[1].isGreen = true;
+   plates[2].isGreen = true;
+   
 
    } else if (difficulty === 'medium') {
-   plate[0].isGreen = true;
-   plate[1].isGreen = true;
+   plates[0].isGreen = true;
+   plates[1].isGreen = true;
 
-   } else if  ( difficulty === ' hard') {
-   plate[0].isGreen = true;
+   } else if  ( difficulty === 'hard') {
+   plates[0].isGreen = true;
 
    }
 
@@ -73,8 +66,12 @@ function gameOver(){
    if (y >= height - 150){
       for (let plate of plates){
          if (x >= plate.x - 70 && x <= plate.x + 100){
-            if (!plate.isGreen && y >= plate.y - 20){
-               gameState = 'gameover';
+            if (y >= plate.y - 20) {
+               if (plate.isGreen) {
+                  gameState = 'win';
+               } else {
+                  gameState = 'gameover';
+               }
             }
          }
       }
@@ -173,11 +170,11 @@ if (gameState === 'start'){
       }
       rect(plate.x, plate.y, 100, 20);
    }
-}
+
 // movment 
 if (keyIsDown(UP_ARROW)) {
    y = y - 5; 
-} else {
+} else if (y < 550) {
    y = y + speed;
 }
 if (keyIsDown(LEFT_ARROW)) {
@@ -195,6 +192,8 @@ gameOver();
 
 cake(x, y);
 
+}
+
   if ( gameState === 'gameover') {
    textAlign(CENTER);
    textSize(32);
@@ -208,6 +207,22 @@ cake(x, y);
    textSize(20);
    textAlign(CENTER,CENTER);
    text("RESTART", 400, 370);
+ } else if (gameState === 'win') {
+   textAlign(CENTER);
+   textSize(32);
+   fill(0, 255, 0);
+   text("You Win", width/2, height/2);
+
+   textSize(24);
+   fill(0, 0, 0);
+   text("Congratulations perfect landing", width/2, height/2 + 50);
+
+   fill(255, 200, 255);
+   rect(350, 350, 100, 40, 5);
+   fill(0, 0, 0);
+   textAlign(CENTER,CENTER);
+   text("PLAY AGAIN", 400, 370);
+
  }
 }
 
@@ -219,28 +234,28 @@ function mousePressed() {
          gameState = 'difficulty';
       }
    } else if (gameState === 'difficulty') {
-      if (mouseY > 250 && mouseX < 290) {
+      if (mouseY > 250 && mouseY < 290) {
          if (mouseX > 250 && mouseX < 350) {
             difficulty = 'easy';
             gameState = 'playing';
-            setPlateColors();
+            setPlateColor();
          } else if ( mouseX > 350 && mouseX < 450) {
             difficulty = 'medium';
-            gameState = ' playing';
-            setPlateColors();
+            gameState = 'playing';
+            setPlateColor();
          } else if ( mouseX > 450 && mouseX < 550) {
             difficulty = 'hard';
             gameState = 'playing';
-            setPlateColors();
+            setPlateColor();
             lastColorChange = millis();
          }
          
       } 
-   } else if (gameState === 'gameover') {
-      if ( mouseX > 350 && mouseX <450 && mouseY > 350 && mouseY < 390) {
+   } else if (gameState === 'gameover' || gameState === 'win') {
+      if ( mouseX > 350 && mouseX < 450 && mouseY > 350 && mouseY < 390) {
          x = 100;
          y = 100;
-         gameState = start;
+         gameState = 'start';
       }
    }
 } 
