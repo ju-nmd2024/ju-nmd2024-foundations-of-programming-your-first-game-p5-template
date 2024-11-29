@@ -27,7 +27,7 @@ let plates = [
 function setup () {
  createCanvas(800,600);
  x = 100;
-y = 100;
+ y = 100;
 speed = 6;
 normalSpeed = 5; 
 slowSpeed = 1;
@@ -35,7 +35,7 @@ gameState = 'start';
 difficulty = '';
 lastColorChange = 0;
 colorChange = 1000;
-valocity = 1/3;
+valocity = 3;
 accelaration = 0.01;
 
 }
