@@ -36,7 +36,7 @@ difficulty = '';
 lastColorChange = 0;
 colorChange = 1000;
 valocity = 3;
-accelaration = 0.01;
+accelaration = 0.1;
 
 }
 
@@ -87,6 +87,12 @@ function gameOver(){
             }
          }
       }
+   }
+}
+
+function checkSpeedLimit() {
+   if (valocity > 10) {
+      gameState ='gameover';
    }
 }
 function cake (x ,y) {
@@ -196,13 +202,11 @@ if (keyIsDown(RIGHT_ARROW)) {
    x = x + valocity; 
 }
 valocity += accelaration;
+checkSpeedLimit();
 if (x < 70) x = 70;
 if (x > width - 70) x = width - 70;
 if (y < 0) y = 0;
 if (y > height - 50) y = height - 50;
-if (y > 500){
-   gameOver();
-}
 
 
 cake(x, y);
