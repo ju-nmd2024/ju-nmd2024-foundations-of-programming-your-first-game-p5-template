@@ -6,15 +6,15 @@ these are help to fix my code also line 186 - 189 i got help from my frined
 he explain why we use it 
 thanks a lot 
 */
-let x = 100;
-let y = 100;
-let speed = 6;
-let normalSpeed = 5; 
-let slowSpeed = 1;
-let gameState = 'start';
-let difficulty = '';
-let lastColorChange = 0;
-let colorChange = 1000;
+let x;
+let y;
+let speed ;
+let normalSpeed; 
+let slowSpeed;
+let gameState;
+let difficulty;
+let lastColorChange;
+let colorChange;
 
 
 // plate 
@@ -26,6 +26,16 @@ let plates = [
 
 function setup () {
  createCanvas(800,600);
+ x = 100;
+y = 100;
+speed = 6;
+normalSpeed = 5; 
+slowSpeed = 1;
+gameState = 'start';
+difficulty = '';
+lastColorChange = 0;
+colorChange = 1000;
+
 }
 
 function setPlateColor() {
