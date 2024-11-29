@@ -15,8 +15,8 @@ let gameState;
 let difficulty;
 let lastColorChange;
 let colorChange;
-
-
+let valocity;
+let accelaration; 
 // plate 
 let plates = [
    {x: 200, y: 550, isGreen:false},
@@ -35,6 +35,8 @@ gameState = 'start';
 difficulty = '';
 lastColorChange = 0;
 colorChange = 1000;
+valocity = 1/3;
+accelaration = 0.01;
 
 }
 
@@ -168,7 +170,7 @@ if (gameState === 'start'){
    text("MEDIUM", 400, 270);
    text("HARD", 500, 270);
    
-   // gane play screen 
+   // game play screen 
 } else if (gameState === 'playing') {
    updateHard();
 
@@ -183,22 +185,25 @@ if (gameState === 'start'){
 
 // movment 
 if (keyIsDown(UP_ARROW)) {
-   y = y - 5; 
+   y = y - valocity; 
 } else if (y < 550) {
-   y = y + speed;
+   y = y + valocity;
 }
 if (keyIsDown(LEFT_ARROW)) {
-   x = x - 5;
+   x = x - valocity;
 }
 if (keyIsDown(RIGHT_ARROW)) {
-   x = x + 5; 
+   x = x + valocity; 
 }
+valocity += accelaration;
 if (x < 70) x = 70;
 if (x > width - 70) x = width - 70;
 if (y < 0) y = 0;
 if (y > height - 50) y = height - 50;
+if (y > 500){
+   gameOver();
+}
 
-gameOver();
 
 cake(x, y);
 
