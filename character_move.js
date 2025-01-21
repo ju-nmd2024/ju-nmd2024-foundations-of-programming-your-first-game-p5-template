@@ -6,6 +6,7 @@ these are help to fix my code also line 186 - 189 i got help from my frined
 he explain why we use it 
 thanks a lot 
 */
+
 let x;
 let y;
 let speed ;
@@ -26,18 +27,24 @@ let plates = [
 
 function setup () {
  createCanvas(800,600);
- x = 100;
- y = 100;
-speed = 6;
-normalSpeed = 5; 
-slowSpeed = 1;
-gameState = 'start';
-difficulty = '';
-lastColorChange = 0;
-colorChange = 1000;
-valocity = 3;
-accelaration = 0.1;
+resetgame();
+}
 
+function resetgame() {
+   x = 100;
+   y = 100;
+  speed = 6;
+  normalSpeed = 5; 
+  slowSpeed = 1;
+  gameState = 'start';
+  difficulty = '';
+  lastColorChange = 0;
+  colorChange = 1000;
+  valocity = 3;
+  accelaration = 0.1;
+  for (let plate of plates) {
+   plate.isGreen = false;
+  }
 }
 
 function setPlateColor() {
@@ -75,7 +82,7 @@ function updateHard (){
    }
 }
 function gameOver(){
-   if (y >= height - 150){
+   if (gameState === 'playing' && y >= height - 150) {
       for (let plate of plates){
          if (x >= plate.x - 70 && x <= plate.x + 100){
             if (y >= plate.y - 20) {
@@ -210,7 +217,7 @@ if (y > height - 50) y = height - 50;
 
 
 cake(x, y);
-
+gameOver();
 }
 
   if ( gameState === 'gameover') {
@@ -275,6 +282,7 @@ function mousePressed() {
          x = 100;
          y = 100;
          gameState = 'start';
+         resetgame();
       }
    }
 } 
