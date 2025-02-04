@@ -41,7 +41,7 @@ function resetgame() {
   lastColorChange = 0;
   colorChange = 1000;
   velocity = 1;
-  acceleration = 0.01;
+  acceleration = 0.02;
   for (let plate of plates) {
    plate.isGreen = false;
   }
@@ -86,7 +86,7 @@ function gameOver(){
       for (let plate of plates) {
          if (x >= plate.x - 70 && x <= plate.x + 100 && y >= plate.y - 20){
          if (plate.isGreen){
-            if ( velocity < 3.3) {
+            if ( velocity < 3) {
                gameState = 'win';
             } else {
                gameState = 'gameover';
@@ -194,7 +194,7 @@ if (gameState === 'start'){
 
 // movment 
 if (keyIsDown(UP_ARROW)) {
-   y = y - slowSpeed; 
+  velocity = velocity - 0.3
 } else if (y < 550) {
    y = y + velocity;
 }
