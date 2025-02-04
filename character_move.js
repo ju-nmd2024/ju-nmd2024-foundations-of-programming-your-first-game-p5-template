@@ -16,8 +16,8 @@ let gameState;
 let difficulty;
 let lastColorChange;
 let colorChange;
-let valocity;
-let accelaration; 
+let velocity;
+let acceleration; 
 // plate 
 let plates = [
    {x: 200, y: 550, isGreen:false},
@@ -35,13 +35,13 @@ function resetgame() {
    y = 100;
   speed = 6;
   normalSpeed = 5; 
-  slowSpeed = 1;
+  slowSpeed = 5;
   gameState = 'start';
   difficulty = '';
   lastColorChange = 0;
   colorChange = 1000;
-  valocity = 3;
-  accelaration = 0.1;
+  velocity = 1;
+  acceleration = 0.01;
   for (let plate of plates) {
    plate.isGreen = false;
   }
@@ -83,24 +83,20 @@ function updateHard (){
 }
 function gameOver(){
    if (gameState === 'playing' && y >= height - 150) {
-      for (let plate of plates){
-         if (x >= plate.x - 70 && x <= plate.x + 100){
-            if (y >= plate.y - 20) {
-               if (plate.isGreen) {
-                  gameState = 'win';
-               } else {
-                  gameState = 'gameover';
-               }
+      for (let plate of plates) {
+         if (x >= plate.x - 70 && x <= plate.x + 100 && y >= plate.y - 20){
+         if (plate.isGreen){
+            if ( velocity < 3.3) {
+               gameState = 'win';
+            } else {
+               gameState = 'gameover';
             }
+         } else {
+            gameState = 'gameover';
          }
       }
    }
-}
-
-function checkSpeedLimit() {
-   if (valocity > 10) {
-      gameState ='gameover';
-   }
+ }
 }
 function cake (x ,y) {
     
@@ -198,18 +194,18 @@ if (gameState === 'start'){
 
 // movment 
 if (keyIsDown(UP_ARROW)) {
-   y = y - valocity; 
+   y = y - slowSpeed; 
 } else if (y < 550) {
-   y = y + valocity;
+   y = y + velocity;
 }
 if (keyIsDown(LEFT_ARROW)) {
-   x = x - valocity;
+   x = x - velocity;
 }
 if (keyIsDown(RIGHT_ARROW)) {
-   x = x + valocity; 
+   x = x + velocity; 
 }
-valocity += accelaration;
-checkSpeedLimit();
+
+velocity += acceleration;
 if (x < 70) x = 70;
 if (x > width - 70) x = width - 70;
 if (y < 0) y = 0;
